@@ -826,7 +826,12 @@ class StackViewLayout extends React.Component {
     if (hasHeader && headerMode === 'float' && !options.headerTransparent) {
       paddingTop = this.state.floatingHeaderHeight;
     }
-
+    
+    // Add add configuration `transparentCardByRouteName` to support dynamic transparentCard
+    const transparentCard = this.props.transparentCardByRouteName ?
+      this.props.transparentCardByRouteName(scene.route.routeName):
+      this.props.transparentCard
+    
     return (
       <Card
         {...this.props.transitionProps}
@@ -834,7 +839,7 @@ class StackViewLayout extends React.Component {
         position={this._getPosition()}
         realPosition={this.props.transitionProps.position}
         animatedStyle={style}
-        transparent={this.props.transparentCard}
+        transparent={transparentCard}
         style={[{ paddingTop }, this.props.cardStyle]}
         scene={scene}
       >
